@@ -9,6 +9,12 @@ docker_build(
 )
 
 docker_build(
+    'webide',
+    context='./webide',
+    dockerfile='./webide/Dockerfile',
+)
+
+docker_build(
     'website',
     context='./website',
     dockerfile='./website/Dockerfile',
@@ -28,6 +34,7 @@ k8s_yaml([
 ])
 
 # 资源与端口转发
-k8s_resource('studio', port_forwards=['3879:3879'])
-k8s_resource('website', port_forwards=['3000:3000'])
+k8s_resource('studio', port_forwards=['3000:3000'])
+k8s_resource('webide', port_forwards=['3002:3002'])
+k8s_resource('website', port_forwards=['3004:3004'])
 k8s_resource('docs', port_forwards=['8080:80'])

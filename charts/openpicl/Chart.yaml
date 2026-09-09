@@ -1,0 +1,6 @@
+apiVersion: v2
+name: openpicl
+description: OpenPICL 应用（Studio + WebIDE + docs）
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

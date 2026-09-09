@@ -1,0 +1,15 @@
+[package]
+name = "pyphotensor-unit"
+version = { workspace = true }
+description = "PhoTensor Python Binding."
+authors = { workspace = true }
+license = { workspace = true }
+license-file = { workspace = true }
+readme = "README.md"
+
+[package.build]
+backend = { name = "pixi-build-python", version = "*", channels = ["https://prefix.dev/conda-forge"] }
+
+[package.host-dependencies]
+python = { workspace = true }
+maturin = { workspace = true }

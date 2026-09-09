@@ -7,6 +7,6 @@ pub fn HomePage() -> impl IntoView {
 
     view! {
         <h1>"Welcome to OpenPICL!"</h1>
-        <button on:click=on_click>"Click Me: "</button>
+        <button on:click=on_click>"Click Me: " {count}</button>
     }
 }

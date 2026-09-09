@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-studio
+  labels:
+    app: studio
+spec:
+  replicas: {{ .Values.studio.replicas }}
+  selector:
+    matchLabels:
+      app: studio
+  template:
+    metadata:
+      labels:
+        app: studio
+    spec:
+      containers:
+        - name: studio
+          image: "{{ .Values.studio.image.repository }}:{{ .Values.studio.image.tag }}"
+          imagePullPolicy: {{ .Values.studio.image.pullPolicy }}
+          ports:
+            - containerPort: 3000

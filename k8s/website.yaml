@@ -7,8 +7,8 @@ spec:
     app: website
   ports:
     - name: http
-      port: 3000
-      targetPort: 3000
+      port: 3004
+      targetPort: 3004
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -26,5 +26,5 @@ spec:
       containers:
         - name: website
           image: website
-          port:
-            - containerPort: 3000
+          ports:
+            - containerPort: 3004

@@ -7,8 +7,8 @@ spec:
     app: studio
   ports:
     - name: http
-      port: 3879
-      targetPort: 3879
+      port: 3000
+      targetPort: 3000
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -26,5 +26,5 @@ spec:
       containers:
         - name: studio
           image: studio
-          port:
-            - containerPort: 3879
+          ports:
+            - containerPort: 3000

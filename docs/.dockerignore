@@ -1,0 +1,16 @@
+# Node
+node_modules
+doc_build/
+
+# skills
+.agents/
+AGENTS.md
+skills-lock.json
+
+# 版本控制
+.gitignore
+
+.dockerignore
+
+# 杂项
+README.md

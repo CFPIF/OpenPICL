@@ -1,0 +1,39 @@
+studio:
+  replicas: 1
+  image:
+    repository: docker.cnb.cool/igipme/opif/openpicl/studio
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 3000
+
+webide:
+  replicas: 1
+  image:
+    repository: docker.cnb.cool/igipme/opif/openpicl/webide
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 3002
+
+website:
+  replicas: 1
+  image:
+    repository: docker.cnb.cool/igipme/opif/openpicl/website
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 3004
+
+docs:
+  replicas: 1
+  image:
+    repository: docker.cnb.cool/igipme/opif/openpicl/docs
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 80

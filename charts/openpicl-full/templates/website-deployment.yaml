@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-website
+  labels:
+    app: website
+spec:
+  replicas: {{ .Values.website.replicas }}
+  selector:
+    matchLabels:
+      app: website
+  template:
+    metadata:
+      labels:
+        app: website
+    spec:
+      containers:
+        - name: website
+          image: "{{ .Values.website.image.repository }}:{{ .Values.website.image.tag }}"
+          imagePullPolicy: {{ .Values.website.image.pullPolicy }}
+          ports:
+            - containerPort: 3004

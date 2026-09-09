@@ -1,0 +1,11 @@
+[package]
+name = "pyphotensor-unit"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "pyphotensor_unit"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = "0.29.0"

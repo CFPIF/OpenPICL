@@ -1,0 +1,8 @@
+$:
+  vscode:
+    - docker:
+        build: .ide/Dockerfile
+        image: cnbcool/default-dev-env:latest
+      services:
+        - vscode
+        - docker

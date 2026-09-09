@@ -70,10 +70,10 @@ COPY --from=builder /build/target/release/server /app/server
 COPY --from=builder /build/target/site /app/site
 
 ENV LEPTOS_SITE_ROOT=/app/site \
-    LEPTOS_SITE_ADDR=0.0.0.0:3879 \
-    LEPTOS_RELOAD_PORT=3880
+    LEPTOS_SITE_ADDR=0.0.0.0:3000 \
+    LEPTOS_RELOAD_PORT=3001
 
-EXPOSE 3879
+EXPOSE 3000
 
 USER studio
 

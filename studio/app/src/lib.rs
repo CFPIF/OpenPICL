@@ -31,7 +31,7 @@ pub fn App() -> impl IntoView {
     provide_meta_context();
 
     view! {
-        <Stylesheet id="leptos" href="/pkg/website.css"/>
+        <Stylesheet id="leptos" href="/pkg/studio.css"/>
 
         <Title text="OpenPICL"/>
 

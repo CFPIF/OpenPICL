@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "skills": {
+    "rspress-best-practices": {
+      "source": "rstackjs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/rspress-best-practices/SKILL.md",
+      "computedHash": "d0022a5ede2f8c8a228a14dfa8bd8c1d03b83a09e6447ded7408d459e2c4930d"
+    },
+    "rspress-custom-theme": {
+      "source": "rstackjs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/rspress-custom-theme/SKILL.md",
+      "computedHash": "869fb455dcc1c04e8e83e5164e344102dfc8fa754b77d64bf9345bbd0dfa41ef"
+    },
+    "rspress-description-generator": {
+      "source": "rstackjs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/rspress-description-generator/SKILL.md",
+      "computedHash": "0e22059b170e09395e5d95513f17dc133b257f5bba7f16d8bc852b1923edbec9"
+    },
+    "rspress-docs-generator": {
+      "source": "rstackjs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/rspress-docs-generator/SKILL.md",
+      "computedHash": "2d77b4f744eca32684609cc0a593ce42733f6c5dff1129a58a4fa3d0e59d7d2d"
+    }
+  }
+}

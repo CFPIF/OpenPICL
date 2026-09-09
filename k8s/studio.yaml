@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: studio
+spec:
+  selector:
+    app: studio
+  ports:
+    - name: http
+      port: 3879
+      targetPort: 3879
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: studio
+spec:
+  selector:
+    matchLabels:
+      app: studio
+  template:
+    metadata:
+      labels:
+        app: studio
+    spec:
+      containers:
+        - name: studio
+          image: studio
+          port:
+            - containerPort: 3879

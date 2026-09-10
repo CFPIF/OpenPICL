@@ -1,0 +1,36 @@
+set windows-shell := ["powershell.exe"]
+export RUST_BACKTRACE := "1"
+
+# 展示可用的命令
+@just:
+    just --list
+
+# 运行 Rust 测试
+test:
+    cargo test
+
+# 运行 Cargo Check
+check:
+    cargo check -p photensor
+    cargo check -p photensor-burn
+    cargo check -p photensor-core
+    cargo check -p photensor-hw
+    cargo check -p photensor-macros
+    cargo check -p photensor-sim
+
+# 调用 rustfmt 工具
+fmt:
+    cargo fmt --all -- --check
+
+# 调用 clippy 工具
+clippy:
+    cargo clippy -p photensor -- -D warnings
+    cargo clippy -p photensor-burn -- -D warnings
+    cargo clippy -p photensor-core -- -D warnings
+    cargo clippy -p photensor-hw -- -D warnings
+    cargo clippy -p photensor-macros -- -D warnings
+    cargo clippy -p photensor-sim -- -D warnings
+
+# 清理构建产物
+clean:
+    cargo clean

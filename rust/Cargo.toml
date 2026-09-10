@@ -1,11 +1,19 @@
 [workspace]
-members = []
+members = [
+    "crates/photensor",
+    "crates/photensor-burn",
+    "crates/photensor-core",
+    "crates/photensor-hw",
+    "crates/photensor-macros",
+    "crates/photensor-sim",
+]
 resolver = "2"
 
 [workspace.package]
 version = "0.1.0"
 edition = "2024"
 authors = ["SolomonCaptain"]
+license-file = "LICENSE"
 
 [workspace.dependencies]
 

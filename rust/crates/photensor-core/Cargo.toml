@@ -1,0 +1,10 @@
+[package]
+name = "photensor-core"
+description = "PhoTensor Core Crate"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license-file.workspace = true
+readme = "README.md"
+
+[dependencies]

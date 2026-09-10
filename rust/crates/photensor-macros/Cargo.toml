@@ -1,0 +1,10 @@
+[package]
+name = "photensor-macros"
+description = "PhoTensor Macros Crate"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license-file.workspace = true
+readme = "README.md"
+
+[dependencies]

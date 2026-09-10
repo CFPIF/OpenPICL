@@ -1,0 +1,53 @@
+services:
+  # Studio
+  studio:
+    build:
+      context: studio
+      dockerfile: studio/Dockerfile
+    image: studio:latest
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    networks:
+      - openpicl-net
+
+  # WebIDE
+  webide:
+    build:
+      context: webide
+      dockerfile: webide/Dockerfile
+    image: webide:latest
+    ports:
+      - "3002:3002"
+    restart: unless-stopped
+    networks:
+      - openpicl-net
+
+  # Website
+  website:
+    build:
+      context: website
+      dockerfile: website/Dockerfile
+    image: website:latest
+    ports:
+      - "3004:3004"
+    restart: unless-stopped
+    networks:
+      - openpicl-net
+
+  # Docs
+  docs:
+    build:
+      context: docs
+      dockerfile: docs/Dockerfile
+    image: docs:latest
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    networks:
+      - openpicl-net
+
+networks:
+  openpicl-net:
+    driver: bridge
+    name: openpicl-net

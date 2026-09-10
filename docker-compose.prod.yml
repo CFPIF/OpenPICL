@@ -1,0 +1,45 @@
+services:
+  # Studio
+  studio:
+    image: ${STUDIO_IMAGE:-docker.cnb.cool/igipme/opif/openpicl/studio}:${STUDIO_IMAGE_TAG:-latest}
+    container_name: studio
+    ports:
+      - "${STUDIO_PORT:-3000}:3000"
+    restart: unless-stopped
+    networks:
+      - openpicl-net
+
+  # WebIDE
+  webide:
+    image: ${WEBIDE_IMAGE:-docker.cnb.cool/igipme/opif/openpicl/webide}:${WEBIDE_IMAGE_TAG:-latest}
+    container_name: webide
+    ports:
+      - "${WEBIDE_PORT:-3002}:3002"
+    restart: unless-stopped
+    networks:
+      - openpicl-net
+
+  # Website
+  website:
+    image: ${WEBSITE_IMAGE:-docker.cnb.cool/igipme/opif/openpicl/website}:${WEBSITE_IMAGE_TAG:-latest}
+    container_name: website
+    ports:
+      - "${WEBSITE_PORT:-3004}:3004"
+    restart: unless-stopped
+    networks:
+      - openpicl-net
+
+  # Docs
+  docs:
+    image: ${DOCS_IMAGE:-docker.cnb.cool/igipme/opif/openpicl/docs}:${DOCS_IMAGE_TAG:-latest}
+    container_name: docs
+    ports:
+      - "${DOCS_PORT:-8080}:80"
+    restart: unless-stopped
+    networks:
+      - openpicl-net
+
+networks:
+  openpicl-net:
+    driver: bridge
+    name: openpicl-net

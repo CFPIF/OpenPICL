@@ -1,0 +1,16 @@
+set windows-shell := ["powershell.exe"]
+export RUST_BACKTRACE := "1"
+
+# 展示可用的命令
+@just:
+    just --list
+
+# 检查 Helm Chart
+lint:
+    helm lint openpicl
+    helm lint openpicl-full
+
+# 本地渲染模板
+template:
+    helm template openpicl
+    helm template openpicl-full

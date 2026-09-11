@@ -28,7 +28,6 @@ RUN curl -fsSL https://code-server.dev/install.sh | sh && \
     code-server --install-extension shd101wyy.markdown-preview-enhanced && \
     code-server --install-extension renan-r-santos.pixi-code && \
     code-server --install-extension ms-playwright.playwright && \
-    code-server --install-extension ms-python.vscode-pylance && \
     code-server --install-extension ms-python.python && \
     code-server --install-extension ms-python.debugpy && \
     code-server --install-extension ms-python.vscode-python-envs && \

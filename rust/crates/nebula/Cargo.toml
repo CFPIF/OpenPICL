@@ -1,0 +1,16 @@
+[package]
+name = "nebula"
+description = "Nebula, a CLI tool"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license-file.workspace = true
+readme = "README.md"
+
+[dependencies]
+anyhow.workspace = true
+clap = { workspace = true, features = ["derive"] }
+colored.workspace = true
+
+nebula-core = { path = "../nebula-core" }
+nebula-protos = { path = "../nebula-protos" }

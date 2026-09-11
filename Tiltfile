@@ -29,6 +29,7 @@ docker_build(
 # 加载 K8s 清单
 k8s_yaml([
     'k8s/studio.yaml',
+    'k8s/webide.yaml',
     'k8s/website.yaml',
     'k8s/docs.yaml',
 ])

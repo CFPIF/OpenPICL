@@ -1,5 +1,8 @@
 [workspace]
 members = [
+    "crates/nebula",
+    "crates/nebula-core",
+    "crates/nebula-protos",
     "crates/photensor",
     "crates/photensor-burn",
     "crates/photensor-core",
@@ -16,6 +19,13 @@ authors = ["SolomonCaptain"]
 license-file = "LICENSE"
 
 [workspace.dependencies]
+anyhow = "1.0.104"
+clap = "4.6.6"
+colored = "3.1.1"
+include_dir = "0.7.4"
+serde = "1.0.229"
+tera = "2.2.0"
+toml = "1.1.4"
 
 [profile.release]
 lto = true

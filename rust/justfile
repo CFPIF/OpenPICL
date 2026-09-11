@@ -11,6 +11,9 @@ test:
 
 # 运行 Cargo Check
 check:
+    cargo check -p nebula
+    cargo check -p nebula-core
+    cargo check -p nebula-protos
     cargo check -p photensor
     cargo check -p photensor-burn
     cargo check -p photensor-core
@@ -24,6 +27,9 @@ fmt:
 
 # 调用 clippy 工具
 clippy:
+    cargo clippy -p nebula -- -D warnings
+    cargo clippy -p nebula-core -- -D warnings
+    cargo clippy -p nebula-protos -- -D warnings
     cargo clippy -p photensor -- -D warnings
     cargo clippy -p photensor-burn -- -D warnings
     cargo clippy -p photensor-core -- -D warnings

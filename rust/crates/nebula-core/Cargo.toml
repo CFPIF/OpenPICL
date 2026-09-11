@@ -1,0 +1,16 @@
+[package]
+name = "nebula-core"
+description = "Nebula Core Crate"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license-file.workspace = true
+readme = "README.md"
+
+[dependencies]
+anyhow.workspace = true
+include_dir.workspace = true
+tera.workspace = true
+toml.workspace = true
+
+nebula-protos = { path = "../nebula-protos" }

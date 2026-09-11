@@ -1,0 +1,19 @@
+[workspace]
+authors = ["{{ author }}"]
+channels = ["conda-forge"]
+name = "{{ project-name }}"
+platforms = [
+    "{{ platform }}"
+]
+version = "{{ project-version }}"
+readme = "README.md"
+
+[workspace.dependencies]
+
+[dependencies]
+
+[feature.{{ platform }}]
+platforms = ["{{ platform }}"]
+
+[environments]
+default = ["{{ platform }}"]

@@ -1,0 +1,11 @@
+[template]
+name = "network-design"
+description = "基础 Network 项目模板"
+version = "1.0"
+
+[variables]
+project-name = { prompt = "项目名称", default = "NewNetworkProject" }
+project-version = { prompt = "项目版本", default = "0.1.0" }
+description = { prompt = "项目描述", default = "一个 Network 项目" }
+author = { prompt = "作者", default = "unknown" }
+platform = { prompt = "平台", default = "linux-64" }

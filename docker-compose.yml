@@ -3,7 +3,6 @@ services:
   studio:
     build:
       context: studio
-      dockerfile: studio/Dockerfile
     image: studio:latest
     ports:
       - "3000:3000"
@@ -15,7 +14,6 @@ services:
   webide:
     build:
       context: webide
-      dockerfile: webide/Dockerfile
     image: webide:latest
     ports:
       - "3002:3002"
@@ -27,7 +25,6 @@ services:
   website:
     build:
       context: website
-      dockerfile: website/Dockerfile
     image: website:latest
     ports:
       - "3004:3004"
@@ -39,7 +36,6 @@ services:
   docs:
     build:
       context: docs
-      dockerfile: docs/Dockerfile
     image: docs:latest
     ports:
       - "8080:80"

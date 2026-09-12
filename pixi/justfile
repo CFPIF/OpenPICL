@@ -4,3 +4,11 @@ export RUST_BACKTRACE := "1"
 # 展示可用的命令
 @just:
     just --list
+
+# 登录 prefix.dev
+login:
+    pixi auth login prefix.dev
+
+# 推送包
+publish:
+    pixi publish --to https://prefix.dev/solomoncaptain/opif

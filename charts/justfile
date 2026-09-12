@@ -14,3 +14,17 @@ lint:
 template:
     helm template openpicl
     helm template openpicl-full
+
+# 打包 Helm Chart
+package:
+    helm package openpicl
+    helm package openpicl-full
+
+# 登录 Helm 仓库
+login token:
+    helm registry login -u cnb -p {{token}} helm.cnb.cool
+
+# 发布 Helm Chart
+publish version:
+    helm push openpicl-{{version}}.tgz oci://helm.cnb.cool/igipme/opif/openpicl
+    helm push openpicl-full-{{version}}.tgz oci://helm.cnb.cool/igipme/opif/openpicl

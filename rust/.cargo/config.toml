@@ -1,5 +1,5 @@
 [registry]
-default = "opif-opif"
+default = "crates-io"
 global-credential-providers = ["cargo:token"]
 
 [registries.opif-opif]

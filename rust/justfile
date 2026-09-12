@@ -40,3 +40,11 @@ clippy:
 # 清理构建产物
 clean:
     cargo clean
+
+# 登录 CNB Cargo 制品库
+login token:
+    echo {{token}} | cargo login --registry opif-opif
+
+# 推送 crate
+publish crate:
+    cargo publish --package {{crate}} --registry opif-opif

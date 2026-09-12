@@ -13,4 +13,4 @@ include_dir.workspace = true
 tera.workspace = true
 toml.workspace = true
 
-nebula-protos = { path = "../nebula-protos", version = "0.1.0" }
+nebula-protos = { path = "../nebula-protos", version = "0.1.0", registry = "opif-opif" }

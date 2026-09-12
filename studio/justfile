@@ -42,3 +42,13 @@ clippy:
 # 清理构建产物
 clean:
     cargo clean
+
+# 登录 CNB 制品库
+login:
+    docker login -u cnb docker.cnb.cool
+
+# 构建并推送制品
+publish tag:
+    docker build -t docker.cnb.cool/igipme/opif/openpicl/studio:latest -t docker.cnb.cool/igipme/opif/openpicl/studio:{{tag}} .
+    docker push docker.cnb.cool/igipme/opif/openpicl/studio:latest
+    docker push docker.cnb.cool/igipme/opif/openpicl/studio:{{tag}}

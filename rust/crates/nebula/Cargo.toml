@@ -12,5 +12,5 @@ anyhow.workspace = true
 clap = { workspace = true, features = ["derive"] }
 colored.workspace = true
 
-nebula-core = { path = "../nebula-core" }
-nebula-protos = { path = "../nebula-protos" }
+nebula-core = { path = "../nebula-core", version = "0.1.0" }
+nebula-protos = { path = "../nebula-protos", version = "0.1.0" }

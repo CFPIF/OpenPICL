@@ -30,66 +30,66 @@
     <a href="https://deepwiki.com/CFPIF/OpenPICL"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
 </div>
 <div>
-    <a href="./README.md">English</a> | <a href="./README-zh.md">Simplified Chinese</a>
+    <a href="./README.md">English</a> | <a href="./README-zh.md">简体中文</a>
     <br />
-    <a href="#-quick-start">Qucik Start</a> · <a href="#aa">AA</a>
+    <a href="#-快速开始">快速开始</a> · <a href="#aa">AA</a>
 </div>
 <br>
 
 <!-- markdownlint-restore -->
 
-Open Photon Intelligence Comprehensive Laboratory
+开放光子智能综合实验室
 
 </div>
 
-## 🗞️ News
+## 🗞️ 动态
 
-- **2026-10-11** — [v0.1.1 released!](https://github.com/CFPIF/OpenPICL/releases/tag/v0.1.1) Community and basic functions. See [changelog](CHANGELOG.md).
+- **2026-10-11** — [v0.1.1 发布！](https://github.com/CFPIF/OpenPICL/releases/tag/v0.1.1) 社区及基础功能。查看[更新日志](CHANGELOG.md)。
 
-## 📖 Overview
+## 📖 项目简介
 
-**OpenPICL** (Open Photon Intelligence Comprehensive Laboratory) is an open-source photon intelligence comprehensive laboratory that provides an open community for photon intelligence communication, covering the entire process of photon intelligence design, implementation, and verification.
+**OpenPICL**（Open Photon Intelligence Comprehensive Laboratory）是一个开源的光子智能综合实验室，提供开放性的光子智能交流社区，覆盖光子智能设计、实现及验证全流程。
 
-### Highlights
+### 核心亮点
 
 ---
 
 >[!TIP]
->[Learn more →](#-integration)
+>[了解更多 →](#集成)
 
 ---
 
-## 🚀 Quick Start
+## 🚀 快速开始
 
-### Docker Compose Deployment
+### Docker Compose 部署
 
-### Kubernetes Deployment
-
----
-
-## ✨ Features
+### Kubernetes 部署
 
 ---
 
-## 🤝 Contributing
+## ✨ 功能特性
 
-We welcome contributions from the community! Whether it's bug reports, feature ideas, or pull requests — every bit helps.
+---
 
-### Project Structure
+## 🤝 参与贡献
+
+我们欢迎社区的贡献！无论是 Bug 报告、功能建议还是 Pull Request，都非常感谢。
+
+### 项目结构
 
 ```
 OpenPICL/
-├── pixi/           # Pixi Workspace
-|  ├── packages/    # Pixi Backages
+├── pixi/           # Pixi 工作区
+|  ├── packages/    # Pixi 包
 ```
 
-### How to Contribute
+### 贡献流程
 
-1. Fork the repository
-2. Create your feature brunch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. Fork 本仓库
+2. 创建你的功能分支（`git checkout -b feature/amazing-feature`）
+3. 提交你的更改（`git commit -m 'Add amazing feature'`）
+4. 推送到分支（`git push origin feature/amazing-feature`）
+5. 提交 Pull Request
 
 ---
 
@@ -101,4 +101,4 @@ OpenPICL/
 
 ## 📄 许可证
 
-This project is licensed under the [GPL-3.0 License](LICENSE).
+本项目基于 [GPL-3.0 License](LICENSE) 开源。

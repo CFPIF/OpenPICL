@@ -1,1 +1,4 @@
+.cargo/
+!.cargo/config.toml
+
 target/

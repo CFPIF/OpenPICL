@@ -1,3 +1,6 @@
+[registry]
+global-credential-providers = ["cargo:token", "cargo:libsecret"]
+
 [registries]
 cargo-hosted = { index = "sparse+http://117.50.75.30:8083/repository/cargo-hosted-private/" }
 cargo-group = { index = "sparse+http://117.50.75.30:8083/repository/cargo-group-all/" }

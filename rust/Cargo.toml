@@ -17,6 +17,7 @@ version = "0.1.0"
 edition = "2024"
 authors = ["SolomonCaptain"]
 license-file = "LICENSE"
+publish = ["cargo-hosted"]
 
 [workspace.dependencies]
 anyhow = "1.0.104"

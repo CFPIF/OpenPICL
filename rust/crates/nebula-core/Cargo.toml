@@ -7,10 +7,13 @@ authors.workspace = true
 license-file.workspace = true
 readme = "README.md"
 
+[package.metadata]
+publish = ["cargo-hosted"]
+
 [dependencies]
 anyhow.workspace = true
 include_dir.workspace = true
 tera.workspace = true
 toml.workspace = true
 
-nebula-protos = { path = "../nebula-protos", version = "0.1.0", registry = "opif-opif" }
+nebula-protos = { path = "../nebula-protos", version = "0.1.0", registry = "cargo-hosted" }

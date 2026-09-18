@@ -7,10 +7,13 @@ authors.workspace = true
 license-file.workspace = true
 readme = "README.md"
 
+[package.metadata]
+publish = ["cargo-hosted"]
+
 [dependencies]
 anyhow.workspace = true
 clap = { workspace = true, features = ["derive"] }
 colored.workspace = true
 
-nebula-core = { path = "../nebula-core", version = "0.1.0", registry = "opif-opif" }
-nebula-protos = { path = "../nebula-protos", version = "0.1.0", registry = "opif-opif" }
+nebula-core = { path = "../nebula-core", version = "0.1.0", registry = "cargo-hosted" }
+nebula-protos = { path = "../nebula-protos", version = "0.1.0", registry = "cargo-hosted" }

@@ -1,0 +1,18 @@
+global:
+  domain: ""
+configs:
+  params:
+    server.insecure: "true"
+  cm:
+    timeout.reconciliation: 60s
+    helm.valuesFileSchemes: http,https
+server:
+  service:
+    type: NodePort
+    nodePortHttp: 30080
+redis-ha:
+  enabled: false
+controller:
+  replicas: 1
+repoServer:
+  replicas: 1

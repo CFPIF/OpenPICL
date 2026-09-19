@@ -5,12 +5,12 @@ export RUST_BACKTRACE := "1"
 @just:
     just --list
 
-# 登录 CNB 制品库
-login:
-    docker login -u cnb docker.cnb.cool
+# 登录 Harbor 制品库
+login token:
+    docker login -u admin -p {{token}} 117.50.75.30:8080
 
 # 构建并推送制品
 publish tag:
-    docker build -t docker.cnb.cool/igipme/opif/openpicl/docs:latest -t docker.cnb.cool/igipme/opif/openpicl/docs:{{tag}} .
-    docker push docker.cnb.cool/igipme/opif/openpicl/docs:latest
-    docker push docker.cnb.cool/igipme/opif/openpicl/docs:{{tag}}
+    docker build -t 117.50.75.30:8080/cfpif/openpicl.docs:latest -t 117.50.75.30:8080/cfpif/openpicl.docs:{{tag}} .
+    docker push 117.50.75.30:8080/cfpif/openpicl.docs:latest
+    docker push 117.50.75.30:8080/cfpif/openpicl.docs:{{tag}}

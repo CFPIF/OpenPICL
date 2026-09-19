@@ -1,7 +1,7 @@
 services:
   # Studio
   studio:
-    image: ${STUDIO_IMAGE:-docker.cnb.cool/igipme/opif/openpicl/studio}:${STUDIO_IMAGE_TAG:-latest}
+    image: ${STUDIO_IMAGE:-117.50.75.30:8080/cfpif/openpicl.studio}:${STUDIO_IMAGE_TAG:-latest}
     container_name: studio
     ports:
       - "${STUDIO_PORT:-3000}:3000"
@@ -11,7 +11,7 @@ services:
 
   # WebIDE
   webide:
-    image: ${WEBIDE_IMAGE:-docker.cnb.cool/igipme/opif/openpicl/webide}:${WEBIDE_IMAGE_TAG:-latest}
+    image: ${WEBIDE_IMAGE:-117.50.75.30:8080/cfpif/openpicl.webide}:${WEBIDE_IMAGE_TAG:-latest}
     container_name: webide
     ports:
       - "${WEBIDE_PORT:-3002}:3002"
@@ -21,7 +21,7 @@ services:
 
   # Website
   website:
-    image: ${WEBSITE_IMAGE:-docker.cnb.cool/igipme/opif/openpicl/website}:${WEBSITE_IMAGE_TAG:-latest}
+    image: ${WEBSITE_IMAGE:-117.50.75.30:8080/cfpif/openpicl.website}:${WEBSITE_IMAGE_TAG:-latest}
     container_name: website
     ports:
       - "${WEBSITE_PORT:-3004}:3004"
@@ -31,10 +31,10 @@ services:
 
   # Docs
   docs:
-    image: ${DOCS_IMAGE:-docker.cnb.cool/igipme/opif/openpicl/docs}:${DOCS_IMAGE_TAG:-latest}
+    image: ${DOCS_IMAGE:-117.50.75.30:8080/cfpif/openpicl.docs}:${DOCS_IMAGE_TAG:-latest}
     container_name: docs
     ports:
-      - "${DOCS_PORT:-8080}:80"
+      - "${DOCS_PORT:-3006}:80"
     restart: unless-stopped
     networks:
       - openpicl-net

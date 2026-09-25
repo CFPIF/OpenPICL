@@ -2,7 +2,7 @@ studio:
   replicas: 1
   image:
     repository: 117.50.75.30:8080/cfpif/openpicl.studio
-    tag: latest
+    tag: 0.1.0
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -12,7 +12,7 @@ webide:
   replicas: 1
   image:
     repository: 117.50.75.30:8080/cfpif/openpicl.webide
-    tag: latest
+    tag: 0.1.0
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -22,7 +22,7 @@ docs:
   replicas: 1
   image:
     repository: 117.50.75.30:8080/cfpif/openpicl.docs
-    tag: latest
+    tag: 0.1.0
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP

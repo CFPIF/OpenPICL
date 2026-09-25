@@ -1,0 +1,21 @@
+pub mod collectionspage;
+pub mod datasetspage;
+pub mod gallerypage;
+pub mod hardwarepage;
+pub mod homepage;
+pub mod modelspage;
+pub mod organizationspage;
+pub mod paperspage;
+pub mod spotlightpage;
+pub mod studiopage;
+
+pub use collectionspage::*;
+pub use datasetspage::*;
+pub use gallerypage::*;
+pub use hardwarepage::*;
+pub use homepage::*;
+pub use modelspage::*;
+pub use organizationspage::*;
+pub use paperspage::*;
+pub use spotlightpage::*;
+pub use studiopage::*;

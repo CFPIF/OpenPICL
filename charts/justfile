@@ -22,9 +22,9 @@ package:
 
 # 登录 Helm 仓库
 login token:
-    helm registry login -u cnb -p {{token}} helm.cnb.cool
+    helm registry login -u admin -p {{token}} 117.50.75.30:8080
 
 # 发布 Helm Chart
 publish version:
-    helm push openpicl-{{version}}.tgz oci://helm.cnb.cool/igipme/opif/openpicl
-    helm push openpicl-full-{{version}}.tgz oci://helm.cnb.cool/igipme/opif/openpicl
+    helm push openpicl-{{version}}.tgz oci://117.50.75.30:8080/openpicl_helm
+    helm push openpicl-full-{{version}}.tgz oci://117.50.75.30:8080/openpicl_helm

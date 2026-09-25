@@ -41,10 +41,14 @@ clippy:
 clean:
     cargo clean
 
-# 登录 CNB Cargo 制品库
+# 生成 Nexus Repository Token
+token password:
+    echo -n "admin:{{password}}" | base64
+
+# 登录 Nexus Cargo 制品库
 login token:
-    echo {{token}} | cargo login --registry opif-opif
+    echo CARGO_REGISTRIES_CARGO_HOSTED_TOKEN={{token}}
 
 # 推送 crate
 publish crate:
-    cargo publish --package {{crate}} --registry opif-opif
+    cargo publish --package {{crate}}

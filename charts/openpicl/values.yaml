@@ -1,8 +1,8 @@
 studio:
   replicas: 1
   image:
-    repository: docker.cnb.cool/igipme/opif/openpicl/studio
-    tag: latest
+    repository: 117.50.75.30:8080/cfpif/openpicl.studio
+    tag: 0.1.0
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -11,8 +11,8 @@ studio:
 webide:
   replicas: 1
   image:
-    repository: docker.cnb.cool/igipme/opif/openpicl/webide
-    tag: latest
+    repository: 117.50.75.30:8080/cfpif/openpicl.webide
+    tag: 0.1.0
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -21,8 +21,8 @@ webide:
 docs:
   replicas: 1
   image:
-    repository: docker.cnb.cool/igipme/opif/openpicl/docs
-    tag: latest
+    repository: 117.50.75.30:8080/cfpif/openpicl.docs
+    tag: 0.1.0
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP

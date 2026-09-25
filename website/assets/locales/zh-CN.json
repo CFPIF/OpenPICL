@@ -1,0 +1,21 @@
+{
+    "home": "主页",
+    "hardware": "硬件库",
+    "models": "模型库",
+    "datasets": "数据集",
+    "studio": "创空间",
+    "spotlight": "开发者实践",
+    "docs": "文档",
+    "community": "社区",
+    "collections": "合集",
+    "papers": "论文",
+    "gallery": "灵感流",
+    "organizations": "组织",
+    "lang_zh": "简体中文",
+    "lang_en": "English",
+    "theme_light": "浅色",
+    "theme_dark": "深色",
+    "theme_system": "跟随系统",
+    "login": "登录",
+    "logout": "登出"
+}

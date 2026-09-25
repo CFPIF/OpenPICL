@@ -5,10 +5,22 @@ export RUST_BACKTRACE := "1"
 @just:
     just --list
 
-# 登录 prefix.dev
-login:
-    pixi auth login prefix.dev
+# 创建 SSH 隧道
+ssh:
+    ssh -L 18000:127.0.0.1:8000 ubuntu@117.50.75.30
+
+# 获取发布 Key
+key:
+    curl -b /tmp/q-cookie -X POST http://localhost:18000/api/api-keys \
+    -H "Content-Type: application/json" \
+    -d '{"description":"publish-key","roles":[]}'
+
+# 构建包
+build package:
+    pixi build --path packages/{{package}} -o /tmp/quetz-pkg
 
 # 推送包
-publish:
-    pixi publish --to https://prefix.dev/solomoncaptain/opif
+publish key package:
+    curl -X POST "http://117.50.75.30:8090/api/channels/cfpif/files/" \
+    -H "X-API-Key: {{key}}" \
+    -F "files=@/tmp/quetz-pkg/{{package}}-<version>-<build>.conda"

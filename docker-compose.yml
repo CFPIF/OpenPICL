@@ -38,7 +38,7 @@ services:
       context: docs
     image: docs:latest
     ports:
-      - "8080:80"
+      - "3006:80"
     restart: unless-stopped
     networks:
       - openpicl-net

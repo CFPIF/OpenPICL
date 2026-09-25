@@ -38,4 +38,4 @@ k8s_yaml([
 k8s_resource('studio', port_forwards=['3100:3000'])
 k8s_resource('webide', port_forwards=['3102:3002'])
 k8s_resource('website', port_forwards=['3104:3004'])
-k8s_resource('docs', port_forwards=['8180:80'])
+k8s_resource('docs', port_forwards=['3106:80'])

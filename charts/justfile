@@ -8,17 +8,14 @@ export RUST_BACKTRACE := "1"
 # 检查 Helm Chart
 lint:
     helm lint openpicl
-    helm lint openpicl-full
 
 # 本地渲染模板
 template:
     helm template openpicl
-    helm template openpicl-full
 
 # 打包 Helm Chart
 package:
     helm package openpicl
-    helm package openpicl-full
 
 # 登录 Helm 仓库
 login token:
@@ -27,4 +24,3 @@ login token:
 # 发布 Helm Chart
 publish version:
     helm push openpicl-{{version}}.tgz oci://117.50.75.30:8080/openpicl_helm
-    helm push openpicl-full-{{version}}.tgz oci://117.50.75.30:8080/openpicl_helm

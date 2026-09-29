@@ -11,7 +11,7 @@ global:
     readOnlyRootFilesystem: true
 
 studio:
-  enable: false
+  enable: true
   name: studio
   replicas: 1
   image:
@@ -46,7 +46,7 @@ studio:
       memory: 384Mi
 
 webide:
-  enable: false
+  enable: true
   name: webide
   replicas: 1
   image:
@@ -116,7 +116,7 @@ website:
       memory: 256Mi
 
 docs:
-  enable: false
+  enable: true
   name: docs
   replicas: 1
   image:

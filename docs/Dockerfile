@@ -21,12 +21,29 @@ RUN pnpm build
 # 运行阶段
 FROM nginx:alpine
 
-# 静态站点
-COPY --from=builder /app/doc_build /usr/share/nginx/html
+# 创建非特权用户/组，UID/GID 固定为 10001，便于 K8s securityContext 对齐
+RUN addgroup -S -g 10001 docs \
+    && adduser -S -D -H -u 10001 -G docs docs
 
-# 使用独立 nginx 配置，支持 clean URL 访问
+# 覆盖 nginx 主配置：pid、temp、日志都改为非 root 可写
+COPY nginx.main.conf /etc/nginx/nginx.conf
+
+# 站点 server 配置，监听 3006
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 80
+# 静态文件复制给 docs 用户
+COPY --from=builder --chown=docs:docs /app/doc_build usr/share/nginx/html
+
+# 预创建 nginx 临时目录并授权给 docs
+RUN mkdir -p /tmp/nginx-client_temp \
+    /tmp/nginx-proxy_temp \
+    /tmp/nginx-fastcgi_temp \
+    /tmp/nginx-uwsgi_temp \
+    /tmp/nginx-scgi_temp \
+    && chown -R docs:docs /tmp/nginx-*
+
+EXPOSE 3006
+
+USER docs
 
 CMD [ "nginx", "-g", "daemon off;" ]

@@ -61,13 +61,13 @@ RUN cargo leptos build --release
 FROM alpine:3.21
 
 RUN apk add --no-cache ca-certificates tzdata \
-    && addgroup -S studio \
-    && adduser -S studio -G studio
+    && addgroup -S -g 10001 studio \
+    && adduser -S -D -H -u 10001 -G studio studio
 
 WORKDIR /app
 
-COPY --from=builder /build/target/release/server /app/server
-COPY --from=builder /build/target/site /app/site
+COPY --from=builder --chown=studio:studio /build/target/release/server /app/server
+COPY --from=builder --chown=studio:studio /build/target/site /app/site
 
 ENV LEPTOS_SITE_ROOT=/app/site \
     LEPTOS_SITE_ADDR=0.0.0.0:3000 \

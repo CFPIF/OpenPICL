@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: openpicl-full
+  name: openpicl
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/CFPIF/OpenPICL.git
     targetRevision: main
-    path: charts/openpicl-full
+    path: charts/openpicl
     helm:
       releaseName: openpicl
       valueFiles:

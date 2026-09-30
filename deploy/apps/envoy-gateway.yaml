@@ -5,13 +5,14 @@ metadata:
   name: envoy-gateway
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "-2"
+    argocd.argoproj.io/sync-wave: "-3"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-    repoURL: docker.io/envoyproxy
+    # 与 deploy/argocd-values.yaml 中 envoyproxy 仓库一致（docker.io 镜像站）
+    repoURL: docker.m.daocloud.io/envoyproxy
     chart: gateway-helm
     targetRevision: v1.5.0
   destination:

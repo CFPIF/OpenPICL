@@ -2,6 +2,12 @@
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 name: openpicl
+# kind 节点的 containerd 默认 config_path 为空，需显式开启才会读取挂载的 certs.d
+# （宿主机 /etc/containerd/certs.d 由 `just prod-registry-setup` 从 deploy/containerd/certs.d 同步）
+containerdConfigPatches:
+  - |-
+    [plugins."io.containerd.cri.v1.images".registry]
+      config_path = "/etc/containerd/certs.d"
 nodes:
   - role: control-plane
     extraPortMappings:

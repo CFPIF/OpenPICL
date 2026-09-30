@@ -1,0 +1,38 @@
+# 先用 letsencrypt-staging 验证链路（无频率限制，证书不受浏览器信任），确认签发成功后切换到 letsencrypt-prod
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging
+spec:
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-staging-account-key
+    solvers:
+      # HTTP-01：cert-manager 在 Gateway 的 http listener 上临时创建 HTTPRoute 响应验证请求
+      - http01:
+          gatewayHTTPRoute:
+            parentRefs:
+              - kind: Gateway
+                name: openpicl-gateway
+                namespace: openpicl
+                sectionName: http
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-prod-account-key
+    solvers:
+      # HTTP-01：cert-manager 在 Gateway 的 http listener 上临时创建 HTTPRoute 响应验证请求
+      - http01:
+          gatewayHTTPRoute:
+            parentRefs:
+              - kind: Gateway
+                name: openpicl-gateway
+                namespace: openpicl
+                sectionName: http

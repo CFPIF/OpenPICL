@@ -1,0 +1,32 @@
+# ArgoCD 自管理：首次由 `just argocd-install` 安装，此后修改 deploy/argocd-values.yaml 并合入 main 即可生效。
+# 注意：不加 resources-finalizer，避免删除该 Application 时级联删除 ArgoCD 自身。
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-4"
+spec:
+  project: default
+  sources:
+    # 版本需与 justfile 中 argocd-install 保持一致
+    - repoURL: ghcr.io/argoproj/argo-helm
+      chart: argo-cd
+      targetRevision: 10.9.2
+      helm:
+        releaseName: argocd
+        valueFiles:
+          - $values/deploy/argocd-values.yaml
+    - repoURL: https://github.com/CFPIF/OpenPICL.git
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true

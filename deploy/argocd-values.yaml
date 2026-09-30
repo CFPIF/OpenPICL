@@ -19,12 +19,26 @@ configs:
       end
       return hs
   repositories:
-    # Envoy Gateway Helm Chart（OCI）
+    # Envoy Gateway Helm Chart（OCI）：docker.io 无法直连，经 DaoCloud 镜像站拉取
     envoyproxy:
       name: envoyproxy
       type: helm
-      url: docker.io/envoyproxy
+      url: docker.m.daocloud.io/envoyproxy
       enableOCI: "true"
+    # ArgoCD 自身的 Helm Chart（OCI）：argoproj.github.io 无法直连
+    argo-helm:
+      name: argo-helm
+      type: helm
+      url: ghcr.io/argoproj/argo-helm
+      enableOCI: "true"
+    # cert-manager Helm Chart
+    jetstack:
+      name: jetstack
+      type: helm
+      url: https://charts.jetstack.io
+# 仅使用 admin 账号，不需要 SSO；dex 镜像位于 ghcr.io，拉取不稳定
+dex:
+  enabled: false
 server:
   service:
     type: NodePort

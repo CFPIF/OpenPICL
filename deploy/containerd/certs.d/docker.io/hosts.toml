@@ -1,0 +1,8 @@
+# docker.io 在国内网络下无法直连，依次尝试镜像站，全部失败时回退到官方源
+server = "https://registry-1.docker.io"
+
+[host."https://docker.m.daocloud.io"]
+  capabilities = ["pull", "resolve"]
+
+[host."https://docker.1ms.run"]
+  capabilities = ["pull", "resolve"]

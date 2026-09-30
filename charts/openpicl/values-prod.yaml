@@ -3,9 +3,11 @@
 gateway:
   create: true
   className: envoy
-  # 域名解析完成并安装 cert-manager 后开启：
+  # 开启 HTTPS：所有启用组件的域名（含 openpicl.com 与 www）都需解析到本机且 80 端口可从公网访问，
+  # 否则共用证书 openpicl-tls 签发失败，而 HTTP 又会跳转到 HTTPS，导致全部站点不可用。
+  # 先用 letsencrypt-staging 验证，成功后改为 letsencrypt-prod 并删除 openpicl-tls Secret 触发重签。
   # annotations:
-  #   cert-manager.io/cluster-issuer: letsencrypt-prod
+  #   cert-manager.io/cluster-issuer: letsencrypt-staging
   tls:
     enabled: false
 

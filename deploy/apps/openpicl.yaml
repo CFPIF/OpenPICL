@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: openpicl-full
+  name: openpicl
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -10,15 +10,11 @@ spec:
   source:
     repoURL: https://github.com/CFPIF/OpenPICL.git
     targetRevision: main
-    path: charts/openpicl-full
+    path: charts/openpicl
     helm:
       releaseName: openpicl
       valueFiles:
-        - values.yaml
-      values: |
-        studio:
-          service:
-            type: ClusterIP
+        - values-prod.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: openpicl
@@ -35,8 +31,3 @@ spec:
         duration: 10s
         factor: 2
         maxDuration: 3m
-  ignoreDifferences:
-    - group: apps
-      kind: Deployment
-      jsonPointers:
-        - /spec/template/spec/containers/0/imagePullPolicy

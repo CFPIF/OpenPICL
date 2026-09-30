@@ -1,6 +1,12 @@
 apiVersion: v2
 name: openpicl
-description: OpenPICL 应用（Studio + WebIDE + docs）
+description: OpenPICL 应用
 type: application
 version: 0.1.0
-appVersion: "1.0.0"
+appVersion: "0.1.0"
+# preStop 使用原生 sleep 动作，需要 Kubernetes 1.30+
+kubeVersion: ">=1.30.0-0"
+dependencies:
+  - name: common
+    version: 0.1.0
+    repository: file://../common

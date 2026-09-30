@@ -1,0 +1,3 @@
+{{- if .Values.website.enabled }}
+{{ include "common.app" (dict "root" $ "name" "website" "app" .Values.website) }}
+{{- end }}

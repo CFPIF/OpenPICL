@@ -6,6 +6,25 @@ configs:
   cm:
     timeout.reconciliation: 60s
     helm.valuesFileSchemes: http,https
+    # 恢复 Application 的健康检查，使 app-of-apps 中的 sync-wave 等待前一个应用 Healthy
+    resource.customizations.health.argoproj.io_Application: |
+      hs = {}
+      hs.status = "Progressing"
+      hs.message = ""
+      if obj.status ~= nil and obj.status.health ~= nil then
+        hs.status = obj.status.health.status
+        if obj.status.health.message ~= nil then
+          hs.message = obj.status.health.message
+        end
+      end
+      return hs
+  repositories:
+    # Envoy Gateway Helm Chart（OCI）
+    envoyproxy:
+      name: envoyproxy
+      type: helm
+      url: docker.io/envoyproxy
+      enableOCI: "true"
 server:
   service:
     type: NodePort

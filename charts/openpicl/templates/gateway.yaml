@@ -1,0 +1,3 @@
+{{- if .Values.gateway.create }}
+{{ include "common.gateway" (dict "root" $ "components" (include "openpicl.components" . | fromYamlArray)) }}
+{{- end }}

@@ -1,0 +1,11 @@
+# 推荐的最小部署：studio + webide + docs，不创建 Gateway，通过 port-forward 访问。
+# 需要对外暴露时设置 gateway.create=true（要求集群已安装 Gateway API 实现）。
+
+studio:
+  enabled: true
+
+webide:
+  enabled: true
+
+docs:
+  enabled: true

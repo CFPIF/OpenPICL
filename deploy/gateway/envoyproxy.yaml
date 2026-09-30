@@ -1,0 +1,31 @@
+# kind 没有 LoadBalancer：Envoy Service 改为 NodePort 并固定端口，
+# 由 deploy/kind-cluster.yaml 将宿主机 80/443 映射到 30081/30443。
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: kind-nodeport
+  namespace: envoy-gateway-system
+spec:
+  provider:
+    type: Kubernetes
+    kubernetes:
+      envoyService:
+        type: NodePort
+        # 端口只映射在 control-plane 节点，而 Envoy Pod 运行在 worker 上，必须允许跨节点转发
+        externalTrafficPolicy: Cluster
+        patch:
+          type: StrategicMerge
+          value:
+            spec:
+              # 按 port 合并；Envoy 容器端口为 listener 端口 + 10000（非特权端口）
+              ports:
+                - name: http-80
+                  port: 80
+                  targetPort: 10080
+                  protocol: TCP
+                  nodePort: 30081
+                - name: https-443
+                  port: 443
+                  targetPort: 10443
+                  protocol: TCP
+                  nodePort: 30443

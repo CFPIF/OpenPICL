@@ -61,13 +61,13 @@ RUN cargo leptos build --release
 FROM alpine:3.21
 
 RUN apk add --no-cache ca-certificates tzdata \
-    && addgroup -S website \
-    && adduser -S website -G website
+    && addgroup -S -g 10001 website \
+    && adduser -S -D -H -u 10001 -G website website
 
 WORKDIR /app
 
-COPY --from=builder /build/target/release/server /app/server
-COPY --from=builder /build/target/site /app/site
+COPY --from=builder --chown=website:website /build/target/release/server /app/server
+COPY --from=builder --chown=website:website /build/target/site /app/site
 
 ENV LEPTOS_SITE_ROOT=/app/site \
     LEPTOS_SITE_ADDR=0.0.0.0:3004 \
@@ -75,6 +75,6 @@ ENV LEPTOS_SITE_ROOT=/app/site \
 
 EXPOSE 3004
 
-USER website
+USER 10001:10001
 
 CMD [ "/app/server" ]

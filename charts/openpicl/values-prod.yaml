@@ -1,0 +1,22 @@
+# 生产部署（ArgoCD 追踪）：单机 kind 集群，全部组件单副本，经 Envoy Gateway 对外暴露。
+
+gateway:
+  create: true
+  className: envoy
+  # 域名解析完成并安装 cert-manager 后开启：
+  # annotations:
+  #   cert-manager.io/cluster-issuer: letsencrypt-prod
+  tls:
+    enabled: false
+
+studio:
+  enabled: true
+
+webide:
+  enabled: true
+
+website:
+  enabled: true
+
+docs:
+  enabled: true

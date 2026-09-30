@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["global", "gateway", "defaults", "studio", "webide", "website", "docs"],
+  "properties": {
+    "fullnameOverride": { "type": "string" },
+    "global": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["domain"],
+      "properties": {
+        "domain": { "type": "string", "minLength": 1 },
+        "imagePullSecrets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "properties": { "name": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "gateway": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "create": { "type": "boolean" },
+        "name": { "type": "string" },
+        "namespace": { "type": "string" },
+        "className": { "type": "string" },
+        "annotations": { "type": "object", "additionalProperties": { "type": "string" } },
+        "tls": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "secretName": { "type": "string" },
+            "redirectHTTP": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    "defaults": { "$ref": "#/definitions/overridable" },
+    "studio": { "$ref": "#/definitions/component" },
+    "webide": { "$ref": "#/definitions/component" },
+    "website": { "$ref": "#/definitions/component" },
+    "docs": { "$ref": "#/definitions/component" }
+  },
+  "definitions": {
+    "overridable": {
+      "type": "object",
+      "properties": {
+        "replicas": { "type": "integer", "minimum": 0 },
+        "podSecurityContext": { "type": "object" },
+        "securityContext": { "type": "object" },
+        "probes": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "path": { "type": "string" },
+            "startup": { "type": ["object", "null"] },
+            "readiness": { "type": ["object", "null"] },
+            "liveness": { "type": ["object", "null"] }
+          }
+        },
+        "resources": { "type": "object" },
+        "terminationGracePeriodSeconds": { "type": "integer", "minimum": 0 },
+        "preStopSleepSeconds": { "type": "integer", "minimum": 0 },
+        "tmpSizeLimit": { "type": ["string", "null"] },
+        "env": { "type": "array" },
+        "podAnnotations": { "type": "object" },
+        "nodeSelector": { "type": "object" },
+        "affinity": { "type": "object" },
+        "tolerations": { "type": "array" }
+      }
+    },
+    "component": {
+      "allOf": [{ "$ref": "#/definitions/overridable" }],
+      "type": "object",
+      "required": ["enabled", "image", "containerPort", "service", "route"],
+      "propertyNames": {
+        "enum": [
+          "enabled",
+          "image",
+          "containerPort",
+          "service",
+          "route",
+          "replicas",
+          "podSecurityContext",
+          "securityContext",
+          "probes",
+          "resources",
+          "terminationGracePeriodSeconds",
+          "preStopSleepSeconds",
+          "tmpSizeLimit",
+          "env",
+          "podAnnotations",
+          "nodeSelector",
+          "affinity",
+          "tolerations"
+        ]
+      },
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "image": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["repository"],
+          "properties": {
+            "repository": { "type": "string", "minLength": 1 },
+            "tag": { "type": "string" },
+            "pullPolicy": { "enum": ["Always", "IfNotPresent", "Never"] }
+          }
+        },
+        "containerPort": { "type": "integer", "minimum": 1, "maximum": 65535 },
+        "service": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": { "enum": ["ClusterIP", "NodePort", "LoadBalancer"] },
+            "port": { "type": "integer", "minimum": 1, "maximum": 65535 }
+          }
+        },
+        "route": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "subdomain": { "type": "string", "pattern": "^([a-z0-9]([-a-z0-9]*[a-z0-9])?)?$" },
+            "aliases": {
+              "type": "array",
+              "items": { "type": "string", "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -18,8 +18,13 @@ tilt:
     tilt up
 
 # 创建生产 kind 集群
-prod-cluster-up:
+prod-cluster-up: prod-registry-setup
     kind create cluster --config deploy/kind-cluster.yaml
+
+# 同步 containerd 镜像仓库配置到宿主机（kind 节点挂载 /etc/containerd/certs.d）
+prod-registry-setup:
+    sudo mkdir -p /etc/containerd/certs.d
+    sudo cp -r deploy/containerd/certs.d/. /etc/containerd/certs.d/
 
 # 删除生产 kind 集群
 prod-cluster-down:
@@ -27,8 +32,7 @@ prod-cluster-down:
 
 # 在生产集群中安装 ArgoCD
 argocd-install:
-    helm repo add argo https://argoproj.github.io/argo-helm --force-update
-    helm upgrade --install argocd argo/argo-cd --kube-context kind-openpicl -n argocd --create-namespace -f deploy/argocd-values.yaml --wait
+    helm upgrade --install argocd oci://ghcr.io/argoproj/argo-helm/argo-cd --version 10.9.2 --kube-context kind-openpicl -n argocd --create-namespace -f deploy/argocd-values.yaml --wait
 
 # 部署根应用，由 ArgoCD 接管 deploy/apps 下的全部应用
 argocd-bootstrap:

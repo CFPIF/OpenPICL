@@ -1,0 +1,6 @@
+# 自建 Harbor（HTTP）
+server = "http://117.50.75.30:8080"
+
+[host."http://117.50.75.30:8080"]
+  capabilities = ["pull", "resolve"]
+  skip_verify = true

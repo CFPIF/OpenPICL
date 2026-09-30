@@ -1,0 +1,5 @@
+# ghcr.io 直连不稳定，优先使用镜像站
+server = "https://ghcr.io"
+
+[host."https://ghcr.m.daocloud.io"]
+  capabilities = ["pull", "resolve"]

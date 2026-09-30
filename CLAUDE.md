@@ -13,7 +13,7 @@ OpenPICL (Open Photon Intelligence Comprehensive Laboratory) is a polyrepo-style
 | `docs/` | Rspress 2 documentation site (pnpm), bilingual `docs/docs/{en,zh}` |
 | `pixi/` | Pixi workspace; `packages/pyphotensor-unit` is a PyO3/maturin Python binding for `photensor` |
 | `charts/` | Helm: `common` (library chart of shared templates) + `openpicl` (umbrella app chart) |
-| `deploy/` | Prod kind config, ArgoCD values, app-of-apps (`bootstrap.yaml` → `apps/`: Envoy Gateway, GatewayClass/EnvoyProxy, `charts/openpicl` with `values-prod.yaml`) synced from `main` |
+| `deploy/` | Prod kind config, ArgoCD values, app-of-apps (`bootstrap.yaml` → `apps/`: self-managed ArgoCD, Envoy Gateway, cert-manager + Let's Encrypt ClusterIssuers, GatewayClass/EnvoyProxy, `charts/openpicl` with `values-prod.yaml`) synced from `main`; order via sync-wave |
 
 Code comments, CLI output, justfile descriptions and commit messages are written in Chinese. Commits follow gitmoji + conventional style, e.g. `✨ feat(website): ...`, `🔧 chore(build): ...`.
 
@@ -52,6 +52,7 @@ Whole stack: `docker compose up --build` (root). Dev k8s: `just cluster-up` (ctl
 - `rust/.cargo/config.toml` sets `CARGO_WORKSPACE_DIR`; `nebula-core` uses it in `include_dir!("$CARGO_WORKSPACE_DIR/assets/templates")`, so templates are embedded at compile time and building outside the `rust/` workspace breaks.
 - Leptos apps' `.cargo/config.toml` sets `getrandom_backend="wasm.js"` for the wasm target.
 - Rust edition is 2024 everywhere. rustfmt: `max_width = 100`, `match_block_trailing_comma = true`. clippy: no `unwrap`/`expect`/`dbg` allowances in tests.
+- The prod host is in mainland China: docker.io is unreachable and ghcr.io is flaky. kind nodes read registry mirrors from `deploy/containerd/certs.d` (synced to the host's `/etc/containerd/certs.d` by `just prod-registry-setup`; `containerdConfigPatches` in `deploy/kind-cluster.yaml` enables `config_path`). Helm charts come from mirrors/OCI (`docker.m.daocloud.io/envoyproxy`, `ghcr.io/argoproj/argo-helm`), not docker.io or argoproj.github.io.
 - Artifacts are published to self-hosted Harbor (images + Helm OCI, `:8080`), Nexus (Cargo, `:8083`) and Quetz (conda, `:8090`) via `just login` / `just publish` recipes.
 
 ## Architecture

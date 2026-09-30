@@ -1,14 +1,21 @@
+# 生产 kind 集群（ArgoCD 追踪 charts/openpicl + values-prod.yaml）
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 name: openpicl
 nodes:
   - role: control-plane
     extraPortMappings:
-      - containerPort: 30080
-        hostPort: 8081
+      # Envoy Gateway HTTP / HTTPS（NodePort 固定于 deploy/gateway/envoyproxy.yaml）
+      - containerPort: 30081
+        hostPort: 80
         protocol: TCP
       - containerPort: 30443
-        hostPort: 8443
+        hostPort: 443
+        protocol: TCP
+      # ArgoCD UI（insecure 模式），仅监听本机，远程访问请使用 SSH 隧道
+      - containerPort: 30080
+        hostPort: 18080
+        listenAddress: 127.0.0.1
         protocol: TCP
     extraMounts:
       - hostPath: /etc/containerd/certs.d

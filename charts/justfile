@@ -5,16 +5,22 @@ export RUST_BACKTRACE := "1"
 @just:
     just --list
 
-# 检查 Helm Chart
-lint:
-    helm lint openpicl
+# 构建本地依赖（common 库 Chart）
+deps:
+    helm dependency build openpicl
 
-# 本地渲染模板
-template:
-    helm template openpicl
+# 检查 Helm Chart（默认值、最小部署、生产部署）
+lint: deps
+    helm lint openpicl --strict
+    helm lint openpicl --strict -f openpicl/values-minimal.yaml
+    helm lint openpicl --strict -f openpicl/values-prod.yaml
+
+# 本地渲染模板，例如 just template values-prod.yaml
+template values="values.yaml": deps
+    helm template openpicl openpicl -f openpicl/{{values}}
 
 # 打包 Helm Chart
-package:
+package: deps
     helm package openpicl
 
 # 登录 Helm 仓库

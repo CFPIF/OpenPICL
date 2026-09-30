@@ -1,0 +1,3 @@
+{{- if .Values.webide.enabled }}
+{{ include "common.app" (dict "root" $ "name" "webide" "app" .Values.webide) }}
+{{- end }}

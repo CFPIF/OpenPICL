@@ -1,4 +1,5 @@
 apiVersion: v2
 name: common
-version: 0.1.0
+description: OpenPICL 共享模板库（Deployment / Service / HTTPRoute / Gateway）
 type: library
+version: 0.1.0

@@ -1,151 +1,151 @@
+# OpenPICL 默认值：所有组件默认关闭，通过 values-minimal.yaml / values-prod.yaml 或 --set 开启。
+
+# 覆盖资源名前缀，默认为 release 名（包含 chart 名时）或 <release>-openpicl
+fullnameOverride: ""
+
 global:
+  # 一级域名，组件域名为 <route.subdomain>.<domain>
+  domain: openpicl.com
+  # 私有仓库拉取凭据，如 [{ name: harbor-pull }]
   imagePullSecrets: []
+
+# Gateway API 入口
+# create: true 时由本 Chart 创建 Gateway；为 false 且 name 非空时挂载到已有 Gateway；两者皆无则不生成 HTTPRoute
+gateway:
+  create: false
+  name: ""
+  # 仅在挂载外部 Gateway 时使用
+  namespace: ""
+  className: envoy
+  # 例如 cert-manager.io/cluster-issuer: letsencrypt-prod
+  annotations: {}
+  tls:
+    enabled: false
+    secretName: openpicl-tls
+    # 开启 TLS 后 HTTP 统一跳转 HTTPS
+    redirectHTTP: true
+
+# 组件默认配置：组件中未出现的顶层键使用这里的值；出现的键整体替换（不做深合并）
+defaults:
+  replicas: 1
   podSecurityContext:
     runAsNonRoot: true
+    runAsUser: 10001
+    runAsGroup: 10001
+    fsGroup: 10001
     seccompProfile:
       type: RuntimeDefault
   securityContext:
     allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: true
     capabilities:
       drop: ["ALL"]
-    readOnlyRootFilesystem: true
+  # 删除某一探针的配置即可关闭该探针
+  probes:
+    path: /healthz
+    startup:
+      periodSeconds: 2
+      timeoutSeconds: 2
+      failureThreshold: 30
+    readiness:
+      periodSeconds: 5
+      timeoutSeconds: 2
+      failureThreshold: 3
+    liveness:
+      periodSeconds: 15
+      timeoutSeconds: 3
+      failureThreshold: 4
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      memory: 384Mi
+  # 需大于服务端优雅关闭超时（30s）+ preStop 等待
+  terminationGracePeriodSeconds: 40
+  # 等待 Endpoint 摘除后再发送 SIGTERM
+  preStopSleepSeconds: 5
+  # 挂载到 /tmp 的 emptyDir 上限（根文件系统只读）
+  tmpSizeLimit: 64Mi
+  env: []
+  podAnnotations: {}
+  nodeSelector: {}
+  affinity: {}
+  tolerations: []
 
 studio:
-  enable: false
-  name: studio
-  replicas: 1
+  enabled: false
   image:
     repository: 117.50.75.30:8080/cfpif/openpicl.studio
-    tag: 0.1.0
+    # 为空时使用 Chart appVersion
+    tag: ""
     pullPolicy: IfNotPresent
+  # 镜像实际监听端口，需与 Dockerfile 中 LEPTOS_SITE_ADDR 一致
+  containerPort: 3000
   service:
     type: ClusterIP
     port: 3000
-  probes:
-    path: /healthz
-    readiness:
-      enabled: true
-      type: http
-      initialDelaySeconds: 3
-      periodSeconds: 5
-      timeoutSeconds: 2
-      failureThreshold: 3
-    liveness:
-      enabled: true
-      type: http
-      initialDelaySeconds: 15
-      periodSeconds: 15
-      timeoutSeconds: 3
-      failureThreshold: 4
-  resources:
-    requests:
-      cpu: 50m
-      memory: 128Mi
-    limits:
-      cpu: null
-      memory: 384Mi
+  route:
+    enabled: true
+    subdomain: studio
+    aliases: []
 
 webide:
-  enable: false
-  name: webide
-  replicas: 1
+  enabled: false
   image:
     repository: 117.50.75.30:8080/cfpif/openpicl.webide
-    tag: 0.1.0
+    tag: ""
     pullPolicy: IfNotPresent
+  containerPort: 3002
   service:
     type: ClusterIP
     port: 3002
-  probes:
-    path: /healthz
-    readiness:
-      enabled: true
-      type: http
-      initialDelaySeconds: 3
-      periodSeconds: 5
-      timeoutSeconds: 2
-      failureThreshold: 3
-    liveness:
-      enabled: true
-      type: http
-      initialDelaySeconds: 15
-      periodSeconds: 15
-      timeoutSeconds: 3
-      failureThreshold: 4
-  resources:
-    requests:
-      cpu: 50m
-      memory: 128Mi
-    limits:
-      cpu: null
-      memory: 384Mi
+  route:
+    enabled: true
+    subdomain: ide
+    aliases: []
 
 website:
-  enable: false
-  name: website
-  replicas: 1
+  enabled: false
   image:
     repository: 117.50.75.30:8080/cfpif/openpicl.website
-    tag: 0.1.0
+    tag: ""
     pullPolicy: IfNotPresent
+  containerPort: 3004
   service:
     type: ClusterIP
     port: 3004
-  probes:
-    path: /healthz
-    readiness:
-      enabled: true
-      type: http
-      initialDelaySeconds: 3
-      periodSeconds: 5
-      timeoutSeconds: 2
-      failureThreshold: 3
-    liveness:
-      enabled: true
-      type: http
-      initialDelaySeconds: 15
-      periodSeconds: 15
-      timeoutSeconds: 3
-      failureThreshold: 4
+  route:
+    enabled: true
+    # 为空表示使用一级域名
+    subdomain: ""
+    # 跳转到主域名的别名子域名
+    aliases: [www]
   resources:
     requests:
       cpu: 25m
       memory: 96Mi
     limits:
-      cpu: null
       memory: 256Mi
 
 docs:
-  enable: false
-  name: docs
-  replicas: 1
+  enabled: false
   image:
     repository: 117.50.75.30:8080/cfpif/openpicl.docs
-    tag: 0.1.0
+    tag: ""
     pullPolicy: IfNotPresent
+  # 与 docs/nginx.conf 中的 listen 一致
+  containerPort: 3006
   service:
     type: ClusterIP
     port: 3006
-  probes:
-    path: /healthz
-    readiness:
-      enabled: true
-      type: http
-      initialDelaySeconds: 3
-      periodSeconds: 5
-      timeoutSeconds: 2
-      failureThreshold: 3
-    liveness:
-      enabled: true
-      type: http
-      initialDelaySeconds: 15
-      periodSeconds: 15
-      timeoutSeconds: 3
-      failureThreshold: 4
+  route:
+    enabled: true
+    subdomain: docs
+    aliases: []
   resources:
     requests:
       cpu: 10m
       memory: 32Mi
     limits:
-      cpu: null
       memory: 128Mi

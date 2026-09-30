@@ -34,7 +34,7 @@ services:
     image: ${DOCS_IMAGE:-117.50.75.30:8080/cfpif/openpicl.docs}:${DOCS_IMAGE_TAG:-latest}
     container_name: docs
     ports:
-      - "${DOCS_PORT:-3006}:80"
+      - "${DOCS_PORT:-3006}:3006"
     restart: unless-stopped
     networks:
       - openpicl-net

@@ -1,7 +1,8 @@
+# 根应用（app-of-apps）：同步 deploy/apps 下的全部 Application，按 sync-wave 依次部署
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: openpicl
+  name: openpicl-root
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -10,24 +11,11 @@ spec:
   source:
     repoURL: https://github.com/CFPIF/OpenPICL.git
     targetRevision: main
-    path: charts/openpicl
-    helm:
-      releaseName: openpicl
-      valueFiles:
-        - values-prod.yaml
+    path: deploy/apps
   destination:
     server: https://kubernetes.default.svc
-    namespace: openpicl
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - ServerSideApply=true
-    retry:
-      limit: 5
-      backoff:
-        duration: 10s
-        factor: 2
-        maxDuration: 3m

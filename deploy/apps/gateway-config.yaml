@@ -1,8 +1,11 @@
+# GatewayClass + EnvoyProxy（集群级网关配置），依赖 Envoy Gateway 的 CRD
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: openpicl
+  name: gateway-config
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -10,21 +13,14 @@ spec:
   source:
     repoURL: https://github.com/CFPIF/OpenPICL.git
     targetRevision: main
-    path: charts/openpicl
-    helm:
-      releaseName: openpicl
-      valueFiles:
-        - values-prod.yaml
+    path: deploy/gateway
   destination:
     server: https://kubernetes.default.svc
-    namespace: openpicl
+    namespace: envoy-gateway-system
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - ServerSideApply=true
     retry:
       limit: 5
       backoff:

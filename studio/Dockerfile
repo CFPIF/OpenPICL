@@ -75,6 +75,6 @@ ENV LEPTOS_SITE_ROOT=/app/site \
 
 EXPOSE 3000
 
-USER studio
+USER 10001:10001
 
 CMD [ "/app/server" ]

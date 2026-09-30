@@ -1,0 +1,19 @@
+OpenPICL 已部署：release {{ .Release.Name }}，命名空间 {{ .Release.Namespace }}
+{{- $scheme := ternary "https" "http" .Values.gateway.tls.enabled }}
+{{- $any := false }}
+{{- range $name := include "openpicl.components" . | fromYamlArray }}
+{{- $app := get $.Values $name }}
+{{- if $app.enabled }}
+{{- $any = true }}
+{{- $ctx := dict "root" $ "name" $name "app" $app }}
+{{- if include "common.routeEnabled" $ctx }}
+  - {{ $name }}: {{ $scheme }}://{{ include "common.host" $ctx }}
+{{- else }}
+  - {{ $name }}: kubectl -n {{ $.Release.Namespace }} port-forward svc/{{ include "common.componentName" $ctx }} {{ $app.service.port | default $app.containerPort }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- if not $any }}
+
+未启用任何组件，请通过 <组件>.enabled=true 或 -f values-minimal.yaml / values-prod.yaml 开启。
+{{- end }}

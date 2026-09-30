@@ -44,6 +44,6 @@ RUN mkdir -p /tmp/nginx-client_temp \
 
 EXPOSE 3006
 
-USER docs
+USER 10001:10001
 
 CMD [ "nginx", "-g", "daemon off;" ]

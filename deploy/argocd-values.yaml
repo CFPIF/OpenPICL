@@ -43,6 +43,8 @@ server:
   service:
     type: NodePort
     nodePortHttp: 30080
+    # Chart 默认 30443，与 Envoy Gateway 的 HTTPS NodePort 冲突（见 deploy/gateway/envoyproxy.yaml）
+    nodePortHttps: 30444
 redis-ha:
   enabled: false
 controller:

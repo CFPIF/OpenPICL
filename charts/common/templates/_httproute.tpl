@@ -1,4 +1,6 @@
 {{/*
+HTTPRoute 中显式写出 API Server 会补全的默认字段（parentRefs/backendRefs 的 group、kind、weight 及默认路径匹配），
+否则 ArgoCD 的客户端 diff 会一直显示 OutOfSync。
 parentRefs：本 Chart 创建 Gateway 时，开启 TLS 则挂到对应域名的 HTTPS listener，否则挂到 http listener；
 使用外部 Gateway 时不指定 sectionName。
 参数：dict "root" $ "hosts" <域名列表>
@@ -9,14 +11,20 @@ parentRefs：本 Chart 创建 Gateway 时，开启 TLS 则挂到对应域名的 
 {{- $name := include "common.gatewayName" $root -}}
 {{- if and $gw.create $gw.tls.enabled -}}
 {{- range .hosts }}
-- name: {{ $name }}
+- group: gateway.networking.k8s.io
+  kind: Gateway
+  name: {{ $name }}
   sectionName: {{ include "common.httpsListenerName" . }}
 {{- end }}
 {{- else if $gw.create }}
-- name: {{ $name }}
+- group: gateway.networking.k8s.io
+  kind: Gateway
+  name: {{ $name }}
   sectionName: http
 {{- else }}
-- name: {{ $name }}
+- group: gateway.networking.k8s.io
+  kind: Gateway
+  name: {{ $name }}
   {{- with $gw.namespace }}
   namespace: {{ . }}
   {{- end }}
@@ -41,9 +49,16 @@ spec:
   hostnames:
     - {{ $host | quote }}
   rules:
-    - backendRefs:
-        - name: {{ include "common.componentName" . }}
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - group: ""
+          kind: Service
+          name: {{ include "common.componentName" . }}
           port: {{ $app.service.port | default $app.containerPort }}
+          weight: 1
 {{- if $aliases }}
 ---
 # 别名域名（如 www）301 跳转到主域名
@@ -61,7 +76,11 @@ spec:
     - {{ . | quote }}
     {{- end }}
   rules:
-    - filters:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      filters:
         - type: RequestRedirect
           requestRedirect:
             {{- if $root.Values.gateway.tls.enabled }}

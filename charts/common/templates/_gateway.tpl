@@ -60,14 +60,20 @@ metadata:
     {{- include "common.chartLabels" $root | nindent 4 }}
 spec:
   parentRefs:
-    - name: {{ $name }}
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: {{ $name }}
       sectionName: http
   hostnames:
     {{- range $hosts }}
     - {{ . | quote }}
     {{- end }}
   rules:
-    - filters:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      filters:
         - type: RequestRedirect
           requestRedirect:
             scheme: https

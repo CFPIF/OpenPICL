@@ -5,7 +5,6 @@ use leptos::prelude::*;
 use leptos_axum::{LeptosRoutes, generate_route_list};
 use server::shutdown_signal;
 use std::time::Duration;
-use tokio::time::timeout;
 
 #[tokio::main]
 async fn main() {
@@ -25,12 +24,18 @@ async fn main() {
 
     log!("listening on http://{}", &addr);
     let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
-    
-    let server = axum::serve(listener, app.into_make_service())
-        .with_graceful_shutdown(shutdown_signal());
 
-    // 设置 30 秒的关闭时间
-    if let Err(e) = timeout(Duration::from_secs(30), server).await {
-        eprintln!("Graceful shutdown timed out: {:?}", e);
+    let server = axum::serve(listener, app.into_make_service()).with_graceful_shutdown(async {
+        shutdown_signal().await;
+        // 收到退出信号后才开始计时：30 秒内未完成优雅关闭则强制退出
+        tokio::spawn(async {
+            tokio::time::sleep(Duration::from_secs(30)).await;
+            eprintln!("Graceful shutdown timed out");
+            std::process::exit(1);
+        });
+    });
+
+    if let Err(e) = server.await {
+        eprintln!("Server error: {e}");
     }
 }

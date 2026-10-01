@@ -42,7 +42,9 @@ spec:
       tls:
         mode: Terminate
         certificateRefs:
-          - kind: Secret
+          # 显式写出默认 group，避免 ArgoCD diff 显示 OutOfSync
+          - group: ""
+            kind: Secret
             name: {{ required "gateway.tls.secretName 不能为空" $gw.tls.secretName }}
       allowedRoutes:
         namespaces:
